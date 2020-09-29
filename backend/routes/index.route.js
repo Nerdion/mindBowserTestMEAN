@@ -1,0 +1,51 @@
+const express = require('express')
+const Employee = require('../models/index.model')
+const router = express.Router()
+
+router.get('/',(req,res) => {
+    Employee.find({},(err,employeesList)=>{
+        if(err) console.log(err)
+        res.json(employeesList)
+    })
+})
+
+router.post('/',(req,res) => {
+    employee = new Employee({
+        empID:req.body.empID,
+        firstname:req.body.firstname,
+        lastName:req.body.lastName,
+        address:req.body.address,
+        dob:req.body.dob,
+        mobile:req.body.mobile,
+        city: req.body.city,
+    })
+
+    employee.save((err)=>{
+        console.log(err)
+        res.json(employee)
+    })
+})
+
+router.put('/:id', async (req,res)=> {
+    employeee = await Employee.findById(req.params.id)
+
+    employee.empID=req.body.empID
+    employee.firstname=req.body.firstname
+    employee.lastName=req.body.lastName
+    employee.address=req.body.address
+    employee.dob=req.body.dob
+    employee.mobile=req.body.mobile
+    employee.city=req.body.city
+
+    employee.save(()=> {
+        res.json(employee)
+    })
+})
+
+router.delete('/:id', (req,res)=> {
+    Employee.findByIdAndDelete(req.params.id, (err) => {
+        res.json({'message':'deleted'})
+    })
+})
+
+module.exports = router

@@ -12,7 +12,7 @@ router.get('/',(req,res) => {
 router.post('/',(req,res) => {
     employee = new Employee({
         empID:req.body.empID,
-        firstname:req.body.firstname,
+        firstName:req.body.firstName,
         lastName:req.body.lastName,
         address:req.body.address,
         dob:req.body.dob,
@@ -27,10 +27,10 @@ router.post('/',(req,res) => {
 })
 
 router.put('/:id', async (req,res)=> {
-    employeee = await Employee.findById(req.params.id)
+    employee = await Employee.findById(req.params.id)
 
     employee.empID=req.body.empID
-    employee.firstname=req.body.firstname
+    employee.firstName=req.body.firstName
     employee.lastName=req.body.lastName
     employee.address=req.body.address
     employee.dob=req.body.dob

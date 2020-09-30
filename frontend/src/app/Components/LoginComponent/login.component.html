@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <form>
+            <form (submit)="login()">
                 <div class="form-group">
                     <label for="email">Email address</label>
                     <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" [(ngModel)]="credentials.email">

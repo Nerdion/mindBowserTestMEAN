@@ -10,7 +10,9 @@ import { LoginComponent } from './Components/LoginComponent/login.component'
 import { RegisterComponent } from './Components/RegisterComponent/register.component'
 import { DashboardComponent} from './Components/DashboardComponent/dashboard.component'
 import { RouterModule, Routes } from '@angular/router';
+
 import { AuthGaurdService } from './authGaurd.service';
+
 
 const routes:Routes = [
   {path: '', component: DashboardComponent, canActivate: [AuthGaurdService]},
@@ -32,7 +34,7 @@ const routes:Routes = [
     FormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [AuthGaurdService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

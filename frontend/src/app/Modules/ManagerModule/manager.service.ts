@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Manager, TokenPayload, TokenResponse } from './Manager'
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'
+import {map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -52,32 +52,32 @@ export class ManagerService {
     }
 
 
-    public login(user:Manager) {
-        const response:any = this.http.post(`${this.serverUrl}/login`, user)
-        if(response.token) {
-            this.saveToken(response.token)
-            this.router.navigateByUrl('/dashboard')
-            return response
-        } else {
-            this.router.navigateByUrl('/login')
-            return false
-        }
-    }
-
-
-    // public login(user: TokenPayload) : Observable<any> {
-    //     const base = this.http.post(`${this.serverUrl}/login`, user)
-
-    //     const request = base.pipe(
-    //         map((data: TokenResponse) => {
-    //             if(data.token) {
-    //                 this.saveToken(data.token)
-    //             }
-    //             return data
-    //         })
-    //     )
-    //     return request
+    // public login(user:Manager) {
+    //     const response:any = this.http.post(`${this.serverUrl}/login`, user)
+    //     if(response.token) {
+    //         this.saveToken(response.token)
+    //         this.router.navigateByUrl('/dashboard')
+    //         return response
+    //     } else {
+    //         this.router.navigateByUrl('/login')
+    //         return response
+    //     }
     // }
+
+
+    public login(user: TokenPayload) : Observable<any> {
+        const base = this.http.post(`${this.serverUrl}/login`, user)
+
+        const request = base.pipe(
+            map((data: TokenResponse) => {
+                if(data.token) {
+                    this.saveToken(data.token)
+                }
+                return data
+            })
+        )
+        return request
+    }
 
     public profile () : Observable<any> {
         return this.http.get(`${this.serverUrl}/profile`, {

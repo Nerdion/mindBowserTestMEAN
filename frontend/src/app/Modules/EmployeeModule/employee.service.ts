@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Employee } from './Employee'
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,23 +12,33 @@ export class EmployeeService {
   selectedEmp: Employee
   employees: Employee[]
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient, private router:Router) {
     this.selectedEmp = new Employee()
   }
 
-  public getEmployeesList() {
+  getEmployeesList() {
+    const headerToken = this.getToken()
     return this.http.get(this.serverUrl)
   }
 
-  public postEmployee(employee: Employee) {
+  postEmployee(employee: Employee) {
     return this.http.post(this.serverUrl, employee)
   }
 
-  public putEmployee(employee: Employee) {
+  putEmployee(employee: Employee) {
     return this.http.put(`${this.serverUrl}/${employee._id}`, employee)
   }
 
-  public deleteEmployee(_id:string) {
+  deleteEmployee(_id:string) {
     return this.http.delete(`${this.serverUrl}/${_id}`)
+  }
+
+  private getToken() :any{
+    const token = localStorage.getItem('userToken')
+    if(token) return token
+    else {
+      this.router.navigateByUrl('/login')
+      return false
+    }
   }
 }

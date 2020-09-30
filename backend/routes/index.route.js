@@ -1,51 +1,30 @@
 const express = require('express')
-const Employee = require('../models/index.model')
 const router = express.Router()
 
-router.get('/',(req,res) => {
-    Employee.find({},(err,employeesList)=>{
-        if(err) console.log(err)
-        res.json(employeesList)
-    })
-})
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 
-router.post('/',(req,res) => {
-    employee = new Employee({
-        empID:req.body.empID,
-        firstName:req.body.firstName,
-        lastName:req.body.lastName,
-        address:req.body.address,
-        dob:req.body.dob,
-        mobile:req.body.mobile,
-        city: req.body.city,
-    })
+process.env.SECRET_KEY = 'secret'
 
-    employee.save((err)=>{
-        console.log(err)
-        res.json(employee)
-    })
-})
+const ApplicationController = require('../controller/applicationController')
+applicationController = new ApplicationController()
 
-router.put('/:id', async (req,res)=> {
-    employee = await Employee.findById(req.params.id)
+//retrieves all the employee
+router.get('/', (req,res)=> applicationController.getAllEmployees(req,res))
 
-    employee.empID=req.body.empID
-    employee.firstName=req.body.firstName
-    employee.lastName=req.body.lastName
-    employee.address=req.body.address
-    employee.dob=req.body.dob
-    employee.mobile=req.body.mobile
-    employee.city=req.body.city
+//adds a new employee
+router.post('/',(req,res) => applicationController.addEmloyee(req,res))
 
-    employee.save(()=> {
-        res.json(employee)
-    })
-})
+//updates a particular employee
+router.put('/:id', async (req,res)=> applicationController.updateEmloyee(req,res))
 
-router.delete('/:id', (req,res)=> {
-    Employee.findByIdAndDelete(req.params.id, (err) => {
-        res.json({'message':'deleted'})
-    })
-})
+//delete a particular employee
+router.delete('/:id', (req,res)=> applicationController.deleteEmployee(req,res))
+
+// registers a new manager
+router.post('/register', (req,res) => applicationController.registerManager(req,res))
+
+// logs in a new manager
+router.post('/login', (req,res) => applicationController.loginManager(req,res))
 
 module.exports = router

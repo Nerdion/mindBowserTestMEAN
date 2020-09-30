@@ -1,66 +1,24 @@
-<div class="container-fluid my-5">
-    <h1 class="text-center">Employee Management</h1>
-    <div class="row mt-5">
-        <div class="col text-right">
-            <button class="btn btn-lg btn-success" data-toggle="modal" data-target="#employeeDetailFields">Add New Employee</button>
-        </div>
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="#">MindBrowser</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active" *ngIf="auth.isLoggedIn()">
+                <a class="nav-link" routerLink="/" href="#">Home</a>
+            </li>
+            <li class="nav-item" *ngIf="!auth.isLoggedIn()">
+                <a class="nav-link" routerLink="/login">Login</a>
+            </li>
+            <li class="nav-item" *ngIf="!auth.isLoggedIn()">
+                <a class="nav-link" routerLink="/register">Register</a>
+            </li>
+            <li class="nav-item" *ngIf="auth.isLoggedIn()">
+                <a class="nav-link" routerLink="" (click)="auth.logout()">Logout</a>
+            </li>
+        </ul>
     </div>
-    <div class="row mt-3">
-        <div class="col-12">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Emp ID</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">DOB</th>
-                        <th scope="col">Mobile</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">City</th>
-                        <th scope="col">Edit</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let employee of employeeList">
-                        <td>{{employee.empID}}</td>
-                        <td>{{employee.firstName}}</td>
-                        <td>{{employee.lastName}}</td>
-                        <td>{{employee.dob}}</td>
-                        <td>{{employee.mobile}}</td>
-                        <td>{{employee.address}}</td>
-                        <td>{{employee.city}}</td>
-                        <td><button (click)="editEmployee(employee)" class="btn bg-warning" data-toggle="modal" data-target="#employeeDetailFields">Edit</button></td>
-                        <td><button (click)="deleteEmployee(employee._id)" class="btn text-light bg-danger">Delete</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+</nav>
 
-<div id="employeeDetailFields" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Employee Details</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form #employeeForm="ngForm" (ngSubmit)="postEmployee(employeeForm)">
-                <input type="hidden" class="form-control my-3" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmp._id" placeholder="_id"/>
-                <input type="text" class="form-control my-3" name="empID" #empID="ngModel" [(ngModel)]="employeeService.selectedEmp.empID" placeholder="empID"/>
-                <input type="text" class="form-control my-3" name="firstName" #firstName="ngModel" [(ngModel)]="employeeService.selectedEmp.firstName" placeholder="firstName"/>
-                <input type="text" class="form-control my-3" name="lastName" #lastName="ngModel" [(ngModel)]="employeeService.selectedEmp.lastName" placeholder="lastName"/>
-                <input type="text" class="form-control my-3" name="dob" #dob="ngModel" [(ngModel)]="employeeService.selectedEmp.dob" placeholder="dob"/>
-                <input type="text" class="form-control my-3" name="mobile" #mobile="ngModel" [(ngModel)]="employeeService.selectedEmp.mobile" placeholder="mobile"/>
-                <input type="text" class="form-control my-3" name="address" #address="ngModel" [(ngModel)]="employeeService.selectedEmp.address" placeholder="address"/>
-                <input type="text" class="form-control my-3" name="city" #city="ngModel" [(ngModel)]="employeeService.selectedEmp.city" placeholder="city"/>
-                <button type="submit" class="btn btn-primary form-control my-4">Save changes</button>
-            </form>
-        </div>
-      </div>
-    </div>
-  </div>
+<router-outlet></router-outlet>

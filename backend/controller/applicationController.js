@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt')
 
 process.env.SECRET_KEY = 'secret'
 
-class ApplicationController {
+module.exports =  class ApplicationController {
     constructor() {}
 
     async registerManager(req,res) {
@@ -157,5 +157,3 @@ class ApplicationController {
         }
     }
 }
-
-module.exports = ApplicationController

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Manager, TokenPayload, TokenResponse } from './Manager'
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'
+import {map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -39,27 +39,16 @@ export class ManagerService {
     }
 
     public isLoggedIn(): boolean {
-        const manager = this.getUserDetails()
-        if(manager) {
-            console.log(manager)
-            return manager.exp > Date.now() / 1000
+        const isLoggedInFlag = this.getUserDetails()
+        if(isLoggedInFlag) {
+            return true
         } else {
             return false
         }
     }
 
-    public register(user:TokenPayload) : Observable<any> {
-        const base = this.http.post(`${this.serverUrl}/register`, user)
-
-        const request = base.pipe(
-            map((data:TokenResponse)=> {
-                if(data.token) {
-                    this.saveToken(data.token)
-                }
-                return data
-            })
-        )
-        return request
+    public register(user:Manager) {
+        return this.http.post(`${this.serverUrl}/register`,user)
     }
 
     public login(user: TokenPayload) : Observable<any> {
@@ -85,6 +74,6 @@ export class ManagerService {
     public logout (): void {
         this.token = ''
         window.localStorage.removeItem('userToken')
-        this.router.navigateByUrl('/')
+        this.router.navigateByUrl('/login')
     }
 }

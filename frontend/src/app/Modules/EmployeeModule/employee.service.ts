@@ -15,19 +15,19 @@ export class EmployeeService {
     this.selectedEmp = new Employee()
   }
 
-  getEmployeesList() {
+  public getEmployeesList() {
     return this.http.get(this.serverUrl)
   }
 
-  postEmployee(employee: Employee) {
+  public postEmployee(employee: Employee) {
     return this.http.post(this.serverUrl, employee)
   }
 
-  putEmployee(employee: Employee) {
+  public putEmployee(employee: Employee) {
     return this.http.put(`${this.serverUrl}/${employee._id}`, employee)
   }
 
-  deleteEmployee(_id:string) {
+  public deleteEmployee(_id:string) {
     return this.http.delete(`${this.serverUrl}/${_id}`)
   }
 }

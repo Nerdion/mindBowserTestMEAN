@@ -39,42 +39,45 @@ export class ManagerService {
     }
 
     public isLoggedIn(): boolean {
-        const manager = this.getUserDetails()
-        if(manager) {
-            console.log(manager)
-            return manager.exp > Date.now() / 1000
+        const isLoggedInFlag = this.getUserDetails()
+        if(isLoggedInFlag) {
+            return true
         } else {
             return false
         }
     }
 
-    public register(user:TokenPayload) : Observable<any> {
-        const base = this.http.post(`${this.serverUrl}/register`, user)
-
-        const request = base.pipe(
-            map((data:TokenResponse)=> {
-                if(data.token) {
-                    this.saveToken(data.token)
-                }
-                return data
-            })
-        )
-        return request
+    public register(user:Manager) {
+        return this.http.post(`${this.serverUrl}/register`,user)
     }
 
-    public login(user: TokenPayload) : Observable<any> {
-        const base = this.http.post(`${this.serverUrl}/login`, user)
 
-        const request = base.pipe(
-            map((data: TokenResponse) => {
-                if(data.token) {
-                    this.saveToken(data.token)
-                }
-                return data
-            })
-        )
-        return request
+    public login(user:Manager) {
+        const response:any = this.http.post(`${this.serverUrl}/login`, user)
+        if(response.token) {
+            this.saveToken(response.token)
+            this.router.navigateByUrl('/dashboard')
+            return response
+        } else {
+            this.router.navigateByUrl('/login')
+            return false
+        }
     }
+
+
+    // public login(user: TokenPayload) : Observable<any> {
+    //     const base = this.http.post(`${this.serverUrl}/login`, user)
+
+    //     const request = base.pipe(
+    //         map((data: TokenResponse) => {
+    //             if(data.token) {
+    //                 this.saveToken(data.token)
+    //             }
+    //             return data
+    //         })
+    //     )
+    //     return request
+    // }
 
     public profile () : Observable<any> {
         return this.http.get(`${this.serverUrl}/profile`, {

@@ -4,10 +4,9 @@ export interface Manager {
     firstName: string
     lastName:string
     address:string
-    dob:string
+    dob:Date
     company:string
-    exp:number
-    iat:number
+    password:string
 }
 
 export interface TokenResponse {
@@ -18,5 +17,8 @@ export interface TokenPayload {
     _id:string,
     firstName:string,
     lastName:string,
-    email:string
+    email:string,
+    company: string,
+    dob:Date,
+    address:string
 }

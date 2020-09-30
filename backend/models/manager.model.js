@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-employee = new Schema({
-    empID:Number,
+manager = new Schema({
+    email:String,
     firstName:String,
     lastName:String,
+    password:String,
     address:String,
     dob:Date,
-    mobile:Number,
-    city: String,
+    company:String,
 })
 
-module.exports = mongoose.model('Employee',employee)
+module.exports = mongoose.model('Manager', manager)

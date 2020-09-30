@@ -51,20 +51,6 @@ export class ManagerService {
         return this.http.post(`${this.serverUrl}/register`,user)
     }
 
-
-    // public login(user:Manager) {
-    //     const response:any = this.http.post(`${this.serverUrl}/login`, user)
-    //     if(response.token) {
-    //         this.saveToken(response.token)
-    //         this.router.navigateByUrl('/dashboard')
-    //         return response
-    //     } else {
-    //         this.router.navigateByUrl('/login')
-    //         return response
-    //     }
-    // }
-
-
     public login(user: TokenPayload) : Observable<any> {
         const base = this.http.post(`${this.serverUrl}/login`, user)
 
@@ -88,6 +74,6 @@ export class ManagerService {
     public logout (): void {
         this.token = ''
         window.localStorage.removeItem('userToken')
-        this.router.navigateByUrl('/')
+        this.router.navigateByUrl('/login')
     }
 }

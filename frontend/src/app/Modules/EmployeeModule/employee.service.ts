@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Employee } from './Employee'
 import { Router } from '@angular/router';
 
@@ -18,24 +18,30 @@ export class EmployeeService {
 
   getEmployeesList() {
     const headerToken = this.getToken()
-    return this.http.get(this.serverUrl)
+    return this.http.get(this.serverUrl, headerToken)
   }
 
   postEmployee(employee: Employee) {
-    return this.http.post(this.serverUrl, employee)
+    const headerToken = this.getToken()
+    return this.http.post(this.serverUrl, employee, headerToken)
   }
 
   putEmployee(employee: Employee) {
-    return this.http.put(`${this.serverUrl}/${employee._id}`, employee)
+    const headerToken = this.getToken()
+    return this.http.put(`${this.serverUrl}/${employee._id}`, employee, headerToken)
   }
 
   deleteEmployee(_id:string) {
-    return this.http.delete(`${this.serverUrl}/${_id}`)
+    const headerToken = this.getToken()
+    return this.http.delete(`${this.serverUrl}/${_id}`, headerToken)
   }
 
   private getToken() :any{
     const token = localStorage.getItem('userToken')
-    if(token) return token
+    if(token) return {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json',
+      'authorization': token})
+    }
     else {
       this.router.navigateByUrl('/login')
       return false

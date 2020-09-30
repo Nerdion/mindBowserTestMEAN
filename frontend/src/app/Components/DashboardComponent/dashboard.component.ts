@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms'
 import { Employee } from '../../Modules/EmployeeModule/Employee';
 import { EmployeeService } from '../../Modules/EmployeeModule/employee.service'
-import { ManagerService } from '../../Modules/ManagerModule/manager.service'
 
 @Component({
     selector: 'app-root',
@@ -19,12 +18,10 @@ export class DashboardComponent {
     ngOnInit() {
         this.getEmployees()
     }
-
-
     getEmployees() {
         this.employeeService.getEmployeesList()
             .subscribe((res) => {
-                this.employeeService.employees = res as Employee[]
+                this.employeeService.employees = res as unknown as Employee[]
                 this.employeeList = this.employeeService.employees
             })
     }
@@ -33,7 +30,6 @@ export class DashboardComponent {
         if (form.value._id) {
             this.employeeService.putEmployee(form.value)
                 .subscribe((res) => {
-                    console.log(res)
                     this.getEmployees()
                     this.employeeService.selectedEmp = new Employee()
                 })

@@ -85,7 +85,7 @@ module.exports =  class ApplicationController {
 
     async getAllEmployees(req,res) {
         try {
-            let validateTrueUser = await this.verifyManager(req.headers['authorisation'], res)
+            let validateTrueUser = await this.verifyManager(req.headers['authorization'], res)
             if(validateTrueUser) {
                 Employee.find({},(e,employeesList)=>{
                     if(e) res.send({Success:false, message:`Unable to process,${e}`})
@@ -99,7 +99,7 @@ module.exports =  class ApplicationController {
 
     async addEmloyee(req,res) {
         try {
-            let validateTrueUser = await this.verifyManager(req.headers['authorisation'], res)
+            let validateTrueUser = await this.verifyManager(req.headers['authorization'], res)
             if(validateTrueUser) {
                 employee = new Employee({
                     empID:req.body.empID,
@@ -122,7 +122,7 @@ module.exports =  class ApplicationController {
 
     async updateEmloyee(req,res) {
         try {
-            let validateTrueUser = await this.verifyManager(req.headers['authorisation'], res)
+            let validateTrueUser = await this.verifyManager(req.headers['authorization'], res)
             if(validateTrueUser) {
                 employee = await Employee.findById(req.params.id)
         
@@ -146,7 +146,7 @@ module.exports =  class ApplicationController {
 
     async deleteEmloyee(req,res) {
         try {
-            let validateTrueUser = await this.verifyManager(req.headers['authorisation'], res)
+            let validateTrueUser = await this.verifyManager(req.headers['authorization'], res)
             if(validateTrueUser) {
                 Employee.findByIdAndDelete(req.params.id, (e) => {
                     res.json({'message':'deleted'})

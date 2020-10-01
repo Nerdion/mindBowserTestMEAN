@@ -19,7 +19,7 @@ router.post('/',(req,res) => applicationController.addEmloyee(req,res))
 router.put('/:id', async (req,res)=> applicationController.updateEmloyee(req,res))
 
 //delete a particular employee
-router.delete('/:id', (req,res)=> applicationController.deleteEmployee(req,res))
+router.delete('/:id', (req,res)=> applicationController.deleteEmloyee(req,res))
 
 // registers a new manager
 router.post('/register', (req,res) => applicationController.registerManager(req,res))

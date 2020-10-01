@@ -51,11 +51,11 @@
         <div class="modal-body">
             <form #employeeForm="ngForm" (ngSubmit)="postEmployee(employeeForm)">
                 <input type="hidden" class="form-control my-3" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmp._id" placeholder="_id"/>
-                <input type="text" class="form-control my-3" name="empID" #empID="ngModel" [(ngModel)]="employeeService.selectedEmp.empID" placeholder="empID"/>
+                <input type="number" class="form-control my-3" name="empID" #empID="ngModel" [(ngModel)]="employeeService.selectedEmp.empID" placeholder="empID"/>
                 <input type="text" class="form-control my-3" name="firstName" #firstName="ngModel" [(ngModel)]="employeeService.selectedEmp.firstName" placeholder="firstName"/>
                 <input type="text" class="form-control my-3" name="lastName" #lastName="ngModel" [(ngModel)]="employeeService.selectedEmp.lastName" placeholder="lastName"/>
-                <input type="text" class="form-control my-3" name="dob" #dob="ngModel" [(ngModel)]="employeeService.selectedEmp.dob" placeholder="dob"/>
-                <input type="text" class="form-control my-3" name="mobile" #mobile="ngModel" [(ngModel)]="employeeService.selectedEmp.mobile" placeholder="mobile"/>
+                <input type="date" class="form-control my-3" name="dob" #dob="ngModel" [(ngModel)]="employeeService.selectedEmp.dob" placeholder="dob"/>
+                <input type="tel" class="form-control my-3" name="mobile" #mobile="ngModel" [(ngModel)]="employeeService.selectedEmp.mobile" placeholder="mobile"/>
                 <input type="text" class="form-control my-3" name="address" #address="ngModel" [(ngModel)]="employeeService.selectedEmp.address" placeholder="address"/>
                 <input type="text" class="form-control my-3" name="city" #city="ngModel" [(ngModel)]="employeeService.selectedEmp.city" placeholder="city"/>
                 <button type="submit" class="btn btn-primary form-control my-4">Save changes</button>

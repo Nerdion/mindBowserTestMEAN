@@ -27,6 +27,7 @@ export class DashboardComponent {
     }
 
     postEmployee(form: NgForm) {
+        console.log('I am called')
         if (form.value._id) {
             this.employeeService.putEmployee(form.value)
                 .subscribe((res) => {

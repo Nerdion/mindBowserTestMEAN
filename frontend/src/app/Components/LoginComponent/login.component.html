@@ -1,6 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
+            <div class="alert alert-danger" *ngIf="loginError">{{loginError}}</div>
             <form (submit)="login()">
                 <div class="form-group">
                     <label for="email">Email address</label>

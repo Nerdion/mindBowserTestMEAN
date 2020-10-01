@@ -8,6 +8,7 @@ import { Router } from '@angular/router'
 })
 
 export class LoginComponent {
+    loginError:string=''
     credentials: Manager = {
         _id:'',
         firstName:'',
@@ -23,7 +24,8 @@ export class LoginComponent {
 
     login() {
         this.auth.login(this.credentials).subscribe(
-            ()=>{
+            (res)=>{
+                if(!res.Sucess) this.loginError=res.message
                 this.router.navigateByUrl('/')
             },
             err=>{

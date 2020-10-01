@@ -9,6 +9,7 @@ employee = new Schema({
     dob:Date,
     mobile:Number,
     city: String,
+    managerId:String
 })
 
 module.exports = mongoose.model('Employee',employee)

@@ -49,7 +49,7 @@ module.exports =  class ApplicationController {
                 res.json({Success:false, message:'Not authorised'})
                 return false
             }
-            return true
+            return decoded._id
         } catch(e) {
             res.json({Success:false, message:'Not authorised, malformed key, no session'})
             return false
@@ -87,7 +87,7 @@ module.exports =  class ApplicationController {
         try {
             let validateTrueUser = await this.verifyManager(req.headers['authorization'], res)
             if(validateTrueUser) {
-                Employee.find({},(e,employeesList)=>{
+                Employee.find({managerId:validateTrueUser},(e,employeesList)=>{
                     if(e) res.send({Success:false, message:`Unable to process,${e}`})
                     else res.json(employeesList)
                 })
@@ -109,6 +109,7 @@ module.exports =  class ApplicationController {
                     dob:req.body.dob,
                     mobile:req.body.mobile,
                     city: req.body.city,
+                    managerId: validateTrueUser
                 })
         
                 employee.save((err)=>{
@@ -133,6 +134,7 @@ module.exports =  class ApplicationController {
                 employee.dob=req.body.dob
                 employee.mobile=req.body.mobile
                 employee.city=req.body.city
+                employee.managerId=validateTrueUser
         
                 employee.save(()=> {
                     res.json(employee)

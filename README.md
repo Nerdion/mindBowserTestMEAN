@@ -1,4 +1,4 @@
-# mindBrowserTestMEAN
+# mindBowserTestMEAN
 The test was really interesting, however 2 days was not a sufficient time for me because of my other work etc.
 
 ### MongoDB, Express, Node
